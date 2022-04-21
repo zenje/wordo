@@ -3,13 +3,10 @@ import Row from './Row';
 
 const ROWS = 6;
 
-const Grid = ({ answer, guessableSet }) => {
+const Grid = ({ activeGuess, answer, guessableSet }) => {
   console.log(guessableSet);
   const [guesses, setGuesses] = useState([]);
   const [guess, setGuess] = useState('');
-  useEffect(() => {
-    //setGuesses(['crane', 'shine']);
-  }, []);
 
   const updateGuess = (event) => {
     setGuess(event.target.value);
@@ -23,14 +20,21 @@ const Grid = ({ answer, guessableSet }) => {
     }
   };
 
+  const emptyRows = Array(ROWS - guesses.length - 1).fill(undefined);
+
   return (
     <>
       <div className="grid">
-        {[...Array(ROWS)].map((r, index) => (
+        {guesses.map((r, index) => (
           <Row
             guess={index < guesses.length ? guesses[index] : ''}
+            isCompleted={true}
             answer={answer}
           />
+        ))}
+        <Row guess={activeGuess} isCompleted={false} />
+        {emptyRows.map((r) => (
+          <Row isBlank={true} isCompleted={false} />
         ))}
       </div>
       <input value={guess} onChange={(event) => updateGuess(event)} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { WORD_LENGTH } from '../constants';
 
 const Cell = ({ letter, isMatching, isPresent }) => {
   if (letter) {
@@ -24,22 +25,43 @@ const GuessedRow = ({ guess, answer, letters }) => {
   );
 };
 
-const BlankRow = ({ answer }) => {
+const ActiveRow = ({ guess }) => {
+  const emptyCells = Array(WORD_LENGTH - guess.length).fill(undefined);
   return (
     <div className="row">
-      {answer.split('').map((c) => (
+      {guess.split('').map((c, i) => (
+        <Cell letter={c} />
+      ))}
+      {emptyCells.map((c, i) => (
         <Cell />
       ))}
     </div>
   );
 };
 
-const Row = ({ guess, answer }) => {
-  const letters = new Set(answer.split(''));
-  if (guess) {
-    return <GuessedRow guess={guess} answer={answer} letters={letters} />;
+const BlankRow = () => {
+  return (
+    <div className="row">
+      {Array(WORD_LENGTH)
+        .fill(undefined)
+        .map((c) => (
+          <Cell />
+        ))}
+    </div>
+  );
+};
+
+const Row = ({ guess = '', isBlank, isCompleted, answer = '' }) => {
+  if (isBlank) {
+    return <BlankRow />;
   }
-  return <BlankRow answer={answer} />;
+
+  if (isCompleted) {
+    const letters = new Set(answer.split(''));
+    return <GuessedRow guess={guess} answer={answer} letters={letters} />;
+  } else {
+    return <ActiveRow guess={guess} />;
+  }
 };
 
 export default Row;
