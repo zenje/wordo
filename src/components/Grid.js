@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Row from './Row';
 
 const ROWS = 6;
 
-const Grid = ({ activeGuess, answer, guessableSet }) => {
-  console.log(guessableSet);
-  const [guesses, setGuesses] = useState([]);
-  const [guess, setGuess] = useState('');
-
-  const updateGuess = (event) => {
-    setGuess(event.target.value);
-  };
-
-  const addGuess = () => {
-    if (guessableSet.has(guess)) {
-      setGuesses([...guesses, guess]);
-    } else {
-      console.log('error for ' + guess);
-    }
-  };
-
-  const emptyRows = Array(ROWS - guesses.length - 1).fill(undefined);
+const Grid = ({ activeGuess, answer, guesses }) => {
+  const emptyRows =
+    guesses.length === ROWS
+      ? []
+      : Array(ROWS - guesses.length - 1).fill(undefined);
 
   return (
     <>
@@ -37,8 +24,6 @@ const Grid = ({ activeGuess, answer, guessableSet }) => {
           <Row isBlank={true} isCompleted={false} />
         ))}
       </div>
-      <input value={guess} onChange={(event) => updateGuess(event)} />
-      <button onClick={() => addGuess()}>Enter</button>
     </>
   );
 };
