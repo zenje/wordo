@@ -1,41 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Pangolin', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #282c34;
+  min-height: 100vh;
+  height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  height: 100%;
 }
 
-.grid {
+.wordle {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 400px;
-  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1.title {
+  letter-spacing: 5px;
+}
+
+.board-container {
+  width: 100%;
+  max-width: 300px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 360px;
 }
 
 .row {
-  width: 300px;
-  gap: 20px;
   display: flex;
+  flex: 1;
 }
 
 .cell {
-  flex: 1;
-  height: 50px;
-  background-color: rgb(255,255,255,0.5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
+  flex: 1;
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem;
 }
 
 .cell.correct {
-  background-color: rgba(0, 255, 34, 0.5);
+  --correct-color: rgba(103, 255, 179, 0.5);
+  background-color: var(--correct-color);
+  border: 2px solid var(--correct-color);
 }
 
 .cell.present {
-  background-color: rgb(255, 251, 6, 0.5);
+  --present-color: rgba(255, 124, 205, 0.5);
+  background-color: var(--present-color);
+  border: 2px solid var(--present-color);
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+}
+
+button.keyboard-key {
+  background: rgb(192, 192, 192, 0.5);
+  border-radius: 5px;
+  border: 0;
+  flex: 1;
+  margin: 0.3rem;
+  cursor: pointer;
+  font-family: 'Pangolin', sans-serif;
+  font-size: 20px;
+  text-transform: lowercase;
+  color: rgb(255, 255, 255);
 }

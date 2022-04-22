@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from './Grid';
+import Keyboard from './Keyboard';
 import guessableWords from '../assets/guessableWords';
 import winningWords from '../assets/winningWords';
 import { WORD_LENGTH } from '../constants';
@@ -53,7 +54,13 @@ const Wordle = () => {
     setAnswer(newAnswer);
   }, []);
 
-  return <Grid activeGuess={activeGuess} answer={answer} guesses={guesses} />;
+  return (
+    <>
+      <h1 className="title">wordo</h1>
+      <Grid activeGuess={activeGuess} answer={answer} guesses={guesses} />
+      <Keyboard usedLetters={[]} />
+    </>
+  );
 };
 
 export default Wordle;

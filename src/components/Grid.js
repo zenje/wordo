@@ -10,8 +10,8 @@ const Grid = ({ activeGuess, answer, guesses }) => {
       : Array(ROWS - guesses.length - 1).fill(undefined);
 
   return (
-    <>
-      <div className="grid">
+    <div className="board-container">
+      <div className="board">
         {guesses.map((r, index) => (
           <Row
             guess={index < guesses.length ? guesses[index] : ''}
@@ -24,7 +24,7 @@ const Grid = ({ activeGuess, answer, guesses }) => {
           <Row isBlank={true} isCompleted={false} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
