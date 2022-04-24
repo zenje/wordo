@@ -5187,6 +5187,7 @@ trite
 troll
 tromp
 troop
+trope
 troth
 trots
 trout

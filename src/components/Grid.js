@@ -21,11 +21,13 @@ const Grid = ({ activeGuess, answer, guesses }) => {
             answer={answer}
           />
         ))}
-        <Row
-          rowIndex={guesses.length}
-          guess={activeGuess}
-          isCompleted={false}
-        />
+        {guesses.length < ROWS ? (
+          <Row
+            rowIndex={guesses.length}
+            guess={activeGuess}
+            isCompleted={false}
+          />
+        ) : null}
         {emptyRows.map((r, index) => (
           <Row
             key={`emptyRow-${index}`}
