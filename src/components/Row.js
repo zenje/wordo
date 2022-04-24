@@ -1,66 +1,71 @@
 import React from 'react';
+import classnames from 'classnames';
 import { WORD_LENGTH } from '../constants';
+import { useWordleContext } from './WordleProvider';
 
-const Cell = ({ letter, isMatching, isPresent }) => {
+const Cell = ({ letter, isCorrect, isPresent }) => {
   if (letter) {
-    let classNames = `cell ${
-      isMatching ? `correct` : `${isPresent ? `present` : `wrong`}`
-    }`;
+    const classNames = classnames(
+      'cell',
+      { present: isPresent && !isCorrect },
+      { correct: isCorrect }
+    );
     return <div className={classNames}>{letter}</div>;
   }
   return <div className="cell emptyCell" />;
 };
 
-const GuessedRow = ({ guess, answer, letters }) => {
+const GuessedRow = ({ guess, rowIndex }) => {
+  const { answer, answerLetters } = useWordleContext();
   return (
     <div className="row">
       {guess.split('').map((c, i) => (
         <Cell
+          key={`cell-${rowIndex}-${i}`}
           letter={c}
-          isMatching={answer[i] === c}
-          isPresent={letters.has(c)}
+          isCorrect={answer[i] === c}
+          isPresent={answerLetters.has(c)}
         />
       ))}
     </div>
   );
 };
 
-const ActiveRow = ({ guess }) => {
+const ActiveRow = ({ guess, rowIndex }) => {
   const emptyCells = Array(WORD_LENGTH - guess.length).fill(undefined);
   return (
     <div className="row">
       {guess.split('').map((c, i) => (
-        <Cell letter={c} />
+        <Cell letter={c} key={`guess-${rowIndex}-${i}`} />
       ))}
       {emptyCells.map((c, i) => (
-        <Cell />
+        <Cell key={`empty-${rowIndex}-${i}`} />
       ))}
     </div>
   );
 };
 
-const BlankRow = () => {
+const BlankRow = ({ rowIndex }) => {
   return (
     <div className="row">
       {Array(WORD_LENGTH)
         .fill(undefined)
-        .map((c) => (
-          <Cell />
+        .map((c, i) => (
+          <Cell key={`cell-${rowIndex}-${i}`} />
         ))}
     </div>
   );
 };
 
-const Row = ({ guess = '', isBlank, isCompleted, answer = '' }) => {
+const Row = ({ rowIndex, guess = '', isBlank, isCompleted }) => {
   if (isBlank) {
-    return <BlankRow />;
+    return <BlankRow rowIndex={rowIndex} />;
   }
 
   if (isCompleted) {
-    const letters = new Set(answer.split(''));
-    return <GuessedRow guess={guess} answer={answer} letters={letters} />;
+    return <GuessedRow rowIndex={rowIndex} guess={guess} />;
   } else {
-    return <ActiveRow guess={guess} />;
+    return <ActiveRow rowIndex={rowIndex} guess={guess} />;
   }
 };
 

@@ -14,14 +14,25 @@ const Grid = ({ activeGuess, answer, guesses }) => {
       <div className="board">
         {guesses.map((r, index) => (
           <Row
+            key={`guessedRow-${index}`}
+            rowIndex={index}
             guess={index < guesses.length ? guesses[index] : ''}
             isCompleted={true}
             answer={answer}
           />
         ))}
-        <Row guess={activeGuess} isCompleted={false} />
-        {emptyRows.map((r) => (
-          <Row isBlank={true} isCompleted={false} />
+        <Row
+          rowIndex={guesses.length}
+          guess={activeGuess}
+          isCompleted={false}
+        />
+        {emptyRows.map((r, index) => (
+          <Row
+            key={`emptyRow-${index}`}
+            rowIndex={guesses.length + index + 1}
+            isBlank={true}
+            isCompleted={false}
+          />
         ))}
       </div>
     </div>

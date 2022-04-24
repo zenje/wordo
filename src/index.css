@@ -19,6 +19,12 @@ body {
   height: 100%;
 }
 
+:root {
+  --correct-color: rgba(103, 255, 179, 0.5);
+  --present-color: rgba(255, 124, 205, 0.5);
+  --absent-color: rgba(75, 75, 75, 0.5);
+}
+
 .wordle {
   width: 100%;
   height: 100%;
@@ -53,7 +59,6 @@ h1.title {
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   flex: 1;
-  flex: 1 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,13 +66,11 @@ h1.title {
 }
 
 .cell.correct {
-  --correct-color: rgba(103, 255, 179, 0.5);
   background-color: var(--correct-color);
   border: 2px solid var(--correct-color);
 }
 
 .cell.present {
-  --present-color: rgba(255, 124, 205, 0.5);
   background-color: var(--present-color);
   border: 2px solid var(--present-color);
 }
@@ -96,4 +99,16 @@ button.keyboard-key {
   font-size: 20px;
   text-transform: lowercase;
   color: rgb(255, 255, 255);
+}
+
+button.keyboard-key.correct {
+  background: var(--correct-color);
+}
+
+button.keyboard-key.present {
+  background: var(--present-color);
+}
+
+button.keyboard-key.absent {
+  background: var(--absent-color);
 }
